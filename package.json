@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/kaanasci/MDP-NodeJS-Project/issues"
   },
-  "homepage": "https://github.com/kaanasci/MDP-NodeJS-Project#readme"
+  "homepage": "https://github.com/kaanasci/MDP-NodeJS-Project#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
 }
