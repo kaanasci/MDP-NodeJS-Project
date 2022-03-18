@@ -1,0 +1,19 @@
+{
+  "name": "mdp-nodejs-project",
+  "version": "1.0.0",
+  "description": "Simple project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaanasci/MDP-NodeJS-Project.git"
+  },
+  "author": "Bekir Kaan Aşcı",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaanasci/MDP-NodeJS-Project/issues"
+  },
+  "homepage": "https://github.com/kaanasci/MDP-NodeJS-Project#readme"
+}
