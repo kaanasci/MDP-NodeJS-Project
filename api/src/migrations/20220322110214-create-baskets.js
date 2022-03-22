@@ -2,25 +2,32 @@
 // eslint-disable-next-line no-undef
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable('Users', {
+		await queryInterface.createTable('Baskets', {
 			id: {
 				allowNull: false,
 				autoIncrement: true,
 				primaryKey: true,
 				type: Sequelize.INTEGER
 			},
-			name: {
-				type: Sequelize.STRING,
-				allowNull: false
-			},
-			email: {
-				type: Sequelize.STRING,
+			userid: {
 				allowNull: false,
-				unique: true
+				type: Sequelize.INTEGER,
+				references: {
+					model: 'Users',
+					key: 'id'
+				}
 			},
-			password: {
-				type: Sequelize.STRING,
-				allowNull: false
+			productid: {
+				allowNull: false,
+				type: Sequelize.INTEGER,
+				references: {
+					model: 'Products',
+					key: 'id'
+				}
+			},
+			quantity: {
+				allowNull: false,
+				type: Sequelize.INTEGER
 			},
 			createdAt: {
 				allowNull: false,
@@ -32,7 +39,8 @@ module.exports = {
 			}
 		});
 	},
+	// eslint-disable-next-line no-unused-vars
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable('Users');
+		await queryInterface.dropTable('Baskets');
 	}
 };
