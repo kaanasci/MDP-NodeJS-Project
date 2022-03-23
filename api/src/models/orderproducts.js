@@ -4,7 +4,7 @@ const {
 	Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-	class Users extends Model {
+	class OrderProducts extends Model {
 
 		/**
 		 * Helper method for defining associations.
@@ -13,22 +13,22 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
-			Users.hasMany(models.Baskets, {
-				foreignKey: 'userid'
+			OrderProducts.belongsTo(models.Orders, {
+				foreignKey: 'orderid'
 			});
-			Users.hasMany(models.Orders, {
-				foreignKey: 'userid'
+			OrderProducts.belongsTo(models.Products, {
+				foreignKey: 'productid'
 			});
+
 		}
 	
 	}
-	Users.init({
-		name: DataTypes.STRING,
-		email: DataTypes.STRING,
-		password: DataTypes.STRING
+	OrderProducts.init({
+		orderid: DataTypes.INTEGER,
+		productid: DataTypes.INTEGER
 	}, {
 		sequelize,
-		modelName: 'Users'
+		modelName: 'OrderProducts'
 	});
-	return Users;
+	return OrderProducts;
 };
