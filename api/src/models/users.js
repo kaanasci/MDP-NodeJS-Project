@@ -19,6 +19,11 @@ module.exports = (sequelize, DataTypes) => {
 			Users.hasMany(models.Orders, {
 				foreignKey: 'userid'
 			});
+			Users.belongsToMany(models.Roles, {
+				through: models.UserRoles,
+				foreignKey: 'userid',
+				otherKey: 'roleid'
+			});
 		}
 	
 	}

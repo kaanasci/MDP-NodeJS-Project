@@ -4,7 +4,7 @@ const {
 	Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-	class Products extends Model {
+	class Permissions extends Model {
 
 		/**
 		 * Helper method for defining associations.
@@ -13,22 +13,15 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
-			Products.hasMany(models.Baskets, {
-				foreignKey: 'productid'
-			});
-			Products.hasMany(models.OrderProducts, {
-				foreignKey: 'productid'
-			});
+			
 		}
 	
 	}
-	Products.init({
-		name: DataTypes.STRING,
-		price: DataTypes.INTEGER,
-		quantity: DataTypes.INTEGER
+	Permissions.init({
+		permission: DataTypes.STRING
 	}, {
 		sequelize,
-		modelName: 'Products'
+		modelName: 'Permissions'
 	});
-	return Products;
+	return Permissions;
 };

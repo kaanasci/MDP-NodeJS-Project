@@ -11,18 +11,9 @@ class OrderController {
 			res.send(error);
 		}
 	}
-	static async addProduct(req, res) {
+	static async getOrders(req, res) {
 		try {
-			const result = await OrderService.addProduct(req);
-			return res.json(result);
-		}
-		catch (error) {
-			res.send(error);
-		}
-	}
-	static async deleteProduct(req, res) {
-		try {
-			const result = await OrderService.deleteProduct(req);
+			const result = await OrderService.getOrders(req);
 			return res.json(result);
 		}
 		catch (error) {

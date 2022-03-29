@@ -20,9 +20,18 @@ class ProductController {
 			res.send(error);
 		}
 	}
-	static async insertProduct(req, res) {
+	static async addProduct(req, res) {
 		try {
-			const result = await ProductService.insertProduct(req);
+			const result = await ProductService.addProduct(req);
+			return res.json(result);
+		}
+		catch (error) {
+			res.send(error);
+		}
+	}
+	static async deleteOrRestoreProduct(req, res) {
+		try {
+			const result = await ProductService.deleteOrRestoreProduct(req);
 			return res.json(result);
 		}
 		catch (error) {

@@ -16,12 +16,14 @@ module.exports = (sequelize, DataTypes) => {
 			Orders.belongsTo(models.Users, {
 				foreignKey: 'userid'
 			});
+			Orders.hasMany(models.OrderProducts, {
+				foreignKey: 'orderid'
+			});
 		}
 	
 	}
 	Orders.init({
 		userid: DataTypes.INTEGER,
-		quantity: DataTypes.INTEGER,
 		total: DataTypes.DOUBLE,
 		status: DataTypes.STRING,
 		address: DataTypes.STRING

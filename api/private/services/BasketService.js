@@ -1,29 +1,54 @@
 import db from '../../src/models';
+
 class BasketService {
 
 	static async getByUser(req) {
 		try {
 			const userID = req.authorizedData.id;
-			const user = await db.Users.findOne({
+			const basket = await db.Baskets.findAll({
 				where: {
-					id: userID
+					userid: userID
 				},
+				attributes: [
+					'id', 'quantity',
+					[ db.Sequelize.col('Product.name'), 'name' ], 
+					[ db.Sequelize.col('Product.price'), 'price' ] 
+				],
 				include: {
-					model: db.Baskets,
-					include: {
-						model: db.Products
-					}
-				},
-				attributes: {
-					exclude: [ 'password' ]
+					model: db.Products,
+					attributes: []
 				}
 			});
-			const basket = user.Baskets;
-			let products = [];
-			basket.forEach((value) => {
-				products.push(value.Product);
-			});
-			return basket;
+			/*
+			 * const user = await db.Users.findOne({
+			 * 	where: {
+			 * 		id: userID
+			 * 	},
+			 * 	include: {
+			 * 		model: db.Baskets,
+			 * 		include: {
+			 * 			model: db.Products,
+			 * 			attributes: []
+			 * 		}
+			 * 	}
+			 * });
+			 * const basket = user.Baskets;
+			 */
+			if (basket) {
+				const result = {
+					type: true,
+					data: basket,
+					message: 'Succesfully got the products.'
+				};
+				return result;
+			}
+			else {
+				const result = {
+					type: false,
+					message: 'ERROR! Could not get the products.'
+				};
+				return result;
+			}
 		}
 		catch (error) {
 			throw error;
@@ -43,7 +68,6 @@ class BasketService {
 					quantity: quantity
 				}, {
 					where: { 
-						userid: req.authorizedData.id,
 						productid: req.body.productid
 					}
 				});
@@ -54,14 +78,20 @@ class BasketService {
 					};
 					return result;
 				}
-				const basket = await db.Baskets.findAll({
+				await db.Baskets.findAll({
 					where: {
 						userid: req.authorizedData.id
+					},
+					include: {
+						model: db.Products,
+						attributes: [ 'name', 'price' ] 
+					},
+					attributes: {
+						exclude: 'productid'
 					}
 				});
 				const result = {
 					type: true,
-					data: basket,
 					message: 'Product is successfully added to basket.'
 				};
 				return result;
@@ -82,7 +112,6 @@ class BasketService {
 				}
 				const result = {
 					type: true,
-					data: product,
 					message: 'Product is successfully added to basket.'
 				};
 				return result;
@@ -101,7 +130,6 @@ class BasketService {
 					productid: productID
 				}
 			});
-			console.log(deleted);
 			if (deleted === 0){
 				const result = {
 					type: false,
