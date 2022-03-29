@@ -11,10 +11,6 @@ exports.manageRoles = function (permissionID) {
 				include: {
 					model: db.Roles,
 					required: true,
-					attributes: [
-						[ db.Sequelize.fn('', db.sequelize.col('Roles.Permissions.RolePermissions.permissionid')),
-							'permissionID' ]
-					],
 					through: {
 						attributes: []
 					},
