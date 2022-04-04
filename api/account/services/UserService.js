@@ -12,7 +12,7 @@ class UserService {
 				email: req.body.email,
 				password: hash
 			};
-			const user = await db.User.create(newUser);
+			const user = await db.Users.create(newUser);
 			if (!(user)){
 				const result = {
 					type: false,
@@ -36,7 +36,7 @@ class UserService {
 	static async login(req) {
 		try {
 			const hash = md5(req.body.password).toString();
-			const user = await db.User.findOne({where: {email: req.body.email, password: hash}});
+			const user = await db.Users.findOne({where: {email: req.body.email, password: hash}});
 			if (!user) {
 				const result = {
 					type: false,
