@@ -6,7 +6,6 @@ import Helpers from '../utils/helpers';
 import jwt from 'jsonwebtoken';
 
 const app = express();
-
 /*
  * function authenticateToken(req, res, next) {
  * 	const header = req.headers['authorization'];

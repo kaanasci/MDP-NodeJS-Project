@@ -12,7 +12,11 @@ module.exports = {
 			permission: 'Adding Product',
 			createdAt: new Date(),
 			updatedAt: new Date()
-		} ], {});
+		},	{
+			permission: 'List All Orders',
+			createdAt: new Date(),
+			updatedAt: new Date()
+		}  ], {});
 	},
 
 	async down (queryInterface, Sequelize) {

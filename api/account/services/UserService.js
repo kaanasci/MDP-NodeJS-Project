@@ -12,6 +12,17 @@ class UserService {
 				email: req.body.email,
 				password: hash
 			};
+			/*
+			 * const lookup = async (email) => {
+			 * 	const user = await db.Users.findOne({where: {
+			 * 		email: email
+			 * 	}});
+			 * 	console.log(user);
+			 * 	if (user) {
+			 * 		throw new Error('Invalid email');
+			 * 	}
+			 * };
+			 */
 			const user = await db.Users.create(newUser);
 			if (!(user)){
 				const result = {

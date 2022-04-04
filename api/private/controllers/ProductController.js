@@ -1,4 +1,5 @@
 import ProductService from '../services/ProductService';
+import ProductValidation from '../validations/ProductValidation';
 
 class ProductController {
 
@@ -22,11 +23,16 @@ class ProductController {
 	}
 	static async addProduct(req, res) {
 		try {
+			const value = ProductValidation.add(req);
+			if (!value.type){
+				console.log(value.message);
+				return res.json({type: false, message: value.message});
+			}
 			const result = await ProductService.addProduct(req);
 			return res.json(result);
 		}
 		catch (error) {
-			res.send(error);
+			throw error;
 		}
 	}
 	static async deleteOrRestoreProduct(req, res) {

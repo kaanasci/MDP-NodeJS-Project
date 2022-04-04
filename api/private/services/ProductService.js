@@ -1,4 +1,6 @@
 import db from '../../src/models';
+// import Joi from 'joi';
+
 class ProductService {
 
 	static async all() {
@@ -25,6 +27,13 @@ class ProductService {
 	static async addProduct(req) {
 		try {
 			const body = req.body;
+			// joi validation 
+			// const schema = Joi.object({
+			// 	name: Joi.string().min(5).required(),
+			// 	price: Joi.number().integer(),
+			// 	quantity: Joi.number().integer()
+			// });
+			// const value = await schema.validateAsync(body);
 			const product = await db.Products.create(body);
 			if (!(product)){
 				const result = {

@@ -135,6 +135,46 @@ class OrderService {
 			throw error;
 		}
 	}
+	// eslint-disable-next-line no-unused-vars
+	static async getAllOrders(req) {
+		try {
+			const orders = await db.Orders.findAll({
+				attributes: [
+					'id', 'userid', 'total', 'address', 'status'
+				],
+				include: {
+					model: db.OrderProducts,
+					attributes: [
+						'id', 'quantity',
+						[ db.Sequelize.fn('trim', db.sequelize.col('OrderProducts.Product.name')), 'product_name' ],
+						[ db.Sequelize.fn('', db.sequelize.col('OrderProducts.Product.price')), 'product_price' ]
+					],
+					include: {
+						model: db.Products,
+						attributes: []
+					}
+				}
+			});
+			if (orders) {
+				const result = {
+					type: true,
+					data: orders,
+					message: 'Succesfully got the orders.'
+				};
+				return result;
+			}
+			else {
+				const result = {
+					type: false,
+					message: 'ERROR! Could not get the orders.'
+				};
+				return result;
+			}
+		}
+		catch (error) {
+			throw error;
+		}
+	}
 	
 }
 export default OrderService;

@@ -20,6 +20,15 @@ class OrderController {
 			res.send(error);
 		}
 	}
+	static async getAllOrders(req, res) {
+		try {
+			const result = await OrderService.getAllOrders(req);
+			return res.json(result);
+		}
+		catch (error) {
+			res.send(error);
+		}
+	}
 
 }
 
